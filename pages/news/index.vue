@@ -1,8 +1,5 @@
 <template>
   <div>
-    <header>
-      <h1>Top Ten</h1>
-    </header>
     <div class="stories-wrapper">
       <Item
         v-for="(item, i) in news"
@@ -54,13 +51,6 @@ export default {
 </script>
 
 <style scoped>
-header {
-  margin: 25px 0;
-  text-align: center;
-  font-size: 3rem;
-  color: var(--yellow);
-}
-
 .stories-wrapper {
   padding: 0 7%;
 }
