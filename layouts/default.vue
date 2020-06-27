@@ -1,8 +1,19 @@
 <template>
   <div>
+    <Navbar />
     <Nuxt />
   </div>
 </template>
+
+<script>
+import Navbar from '@/components/Navbar';
+
+export default {
+  components: {
+    Navbar,
+  },
+};
+</script>
 
 <style>
 :root {
@@ -10,8 +21,10 @@
   --teal: #068587;
   --teal-dimmed: #068587d9;
   --teal-light: #4fb99f;
-  --yellow: #ffc557;
-  --main-bg-color: coral;
+  --yellow: #ffdd57;
+  --orange-hn: #ff6502;
+  --primary-font: 'Cabin', 'Helvetica Neue', sans-serif;
+  --accent-font: 'Cabin Condensed', 'Helvetica', sans-serif;
 }
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -27,7 +40,7 @@ html {
 }
 
 body {
-  font-family: 'Karla', sans-serif;
+  font-family: var(--primary-font);
   color: white;
 }
 
