@@ -3,11 +3,19 @@
     <header>
       <h1>Top Ten</h1>
     </header>
-    <div>
-      <div v-for="item in news" :key="item.id" class="story">
-        <div class="title">{{ item.title }}</div>
-        <div class="author">by: {{ item.by }}</div>
-      </div>
+    <div class="stories-wrapper">
+      <Item
+        v-for="item in news"
+        :key="item.id"
+        :item-id="item.id"
+        class="story"
+        :title="item.title"
+        :author="item.by"
+        :url="item.url"
+        :kids="item.kids"
+        :score="item.score"
+        :time="item.time"
+      />
     </div>
     <div class="news-wrapper"></div>
   </div>
@@ -15,7 +23,13 @@
 
 <script>
 import axios from 'axios';
+import Item from '@/components/Item.vue';
+
 export default {
+  components: {
+    Item,
+  },
+
   data() {
     return {
       news: [],
@@ -45,20 +59,11 @@ header {
   font-size: 3rem;
 }
 
+.stories-wrapper {
+  padding: 7%;
+}
+
 .story {
   margin: 10px 0;
-}
-
-.title {
-  font-size: 1.7rem;
-  margin: 0;
-}
-
-.author {
-  font-size: 1.2rem;
-}
-
-img {
-  width: 100%;
 }
 </style>
