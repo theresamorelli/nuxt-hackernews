@@ -58,6 +58,7 @@ header {
   margin: 25px 0;
   text-align: center;
   font-size: 3rem;
+  color: var(--yellow);
 }
 
 .stories-wrapper {

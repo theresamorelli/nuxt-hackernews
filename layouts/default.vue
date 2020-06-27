@@ -10,7 +10,7 @@
   --teal: #068587;
   --teal-dimmed: #068587d9;
   --teal-light: #4fb99f;
-  --yellow: #eebe63;
+  --yellow: #ffc557;
   --main-bg-color: coral;
 }
 html {

@@ -3,11 +3,11 @@
     <div class="ranking">{{ index + 1 }}</div>
     <div>
       <div class="title">
-        <a :href="url">{{ title }}</a>
+        <a :href="url" target="_blank">{{ title }}</a>
       </div>
-      <span>{{ time | moment('from', 'now') }}</span>
-      <span><i class="score fa fa-heart"></i>{{ score }}</span>
+      <span><i class="fa fa-clock"></i>{{ time | moment('from', 'now') }}</span>
       <span class="author"><i class="fa fa-user"></i>{{ author }}</span>
+      <span><i class="score fa fa-heart"></i>{{ score }}</span>
       <span class="comments"
         ><i class="fa fa-comment"></i>{{ numComments }}</span
       >
@@ -44,14 +44,8 @@ export default {
   align-items: center;
   padding: 18px;
   border-radius: 10px;
-  cursor: pointer;
   background: var(--teal);
   margin: 20px;
-}
-
-.item:hover {
-  background: var(--teal-dimmed);
-  transition: all 0.5s;
 }
 
 .ranking {
@@ -73,6 +67,11 @@ span {
 }
 
 a {
+  color: var(--navy);
+  transition: all 0.5s ease;
+}
+
+a:hover {
   color: var(--yellow);
 }
 
