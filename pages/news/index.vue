@@ -5,10 +5,11 @@
     </header>
     <div class="stories-wrapper">
       <Item
-        v-for="item in news"
+        v-for="(item, i) in news"
         :key="item.id"
-        :item-id="item.id"
         class="story"
+        :index="i"
+        :item-id="item.id"
         :title="item.title"
         :author="item.by"
         :url="item.url"
@@ -60,10 +61,6 @@ header {
 }
 
 .stories-wrapper {
-  padding: 7%;
-}
-
-.story {
-  margin: 10px 0;
+  padding: 0 7%;
 }
 </style>

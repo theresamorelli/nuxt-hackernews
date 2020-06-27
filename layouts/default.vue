@@ -5,6 +5,14 @@
 </template>
 
 <style>
+:root {
+  --navy: #112f41;
+  --teal: #068587;
+  --teal-dimmed: #068587d9;
+  --teal-light: #4fb99f;
+  --yellow: #eebe63;
+  --main-bg-color: coral;
+}
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -15,6 +23,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background: var(--navy);
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+  color: white;
 }
 
 *,
