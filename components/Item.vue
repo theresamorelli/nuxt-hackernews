@@ -45,11 +45,16 @@ export default {
   padding: 18px;
   border-radius: 10px;
   background: var(--teal);
-  margin: 20px;
+  margin: 20px 0;
+}
+
+.item:first-of-type {
+  margin-top: 0;
 }
 
 .ranking {
   font-size: 2rem;
+  color: var(--navy);
   margin-left: 20px;
   margin-right: 35px;
 }
@@ -60,6 +65,8 @@ export default {
 
 span {
   margin-right: 20px;
+  font-family: var(--accent-font);
+  font-size: 1rem;
 }
 
 .score {
@@ -67,16 +74,17 @@ span {
 }
 
 a {
-  color: var(--navy);
+  color: var(--yellow);
   transition: all 0.5s ease;
 }
 
 a:hover {
-  color: var(--yellow);
+  color: white;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
   margin-bottom: 10px;
 }
 </style>
