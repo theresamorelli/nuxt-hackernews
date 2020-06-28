@@ -3,8 +3,9 @@
     <div class="logo">hacker news</div>
     <nav>
       <ul>
-        <li><nuxt-link to="/top" class="active">Top Rated</nuxt-link></li>
-        <li><nuxt-link to="/new">New</nuxt-link></li>
+        <li><nuxt-link to="/today" class="active">Today</nuxt-link></li>
+        <li><nuxt-link to="/best">Best</nuxt-link></li>
+        <li><nuxt-link to="/newest">Newest</nuxt-link></li>
       </ul>
     </nav>
   </header>

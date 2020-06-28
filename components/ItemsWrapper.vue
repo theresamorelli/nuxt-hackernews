@@ -1,7 +1,7 @@
 <template>
   <div class="items-wrapper">
     <Item
-      v-for="(item, i) in news"
+      v-for="(item, i) in items"
       :key="item.id"
       class="story"
       :index="i"
@@ -19,6 +19,6 @@
 <script>
 import Item from '@/components/Item';
 export default {
-  props: ['news'],
+  props: ['items'],
 };
 </script>

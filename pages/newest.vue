@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ItemsWrapper :news="news" />
+    <ItemsWrapper :items="items" />
   </div>
 </template>
 
@@ -15,22 +15,23 @@ export default {
 
   data() {
     return {
-      news: [],
+      items: [],
       quote: null,
     };
   },
 
   async mounted() {
     const res = await axios.get(
-      'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&orderBy="$key"&limitToFirst=10'
+      'https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty'
     );
-    for (const item of res.data) {
+    let mostRecentId = res.data;
+    while (this.items.length < 10) {
       const res2 = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
+        `https://hacker-news.firebaseio.com/v0/item/${mostRecentId}.json?print=pretty`
       );
-      this.news.push(res2.data);
+      if (res2.data.type === 'story') this.items.push(res2.data);
+      mostRecentId--;
     }
-    console.log('this.news', this.news);
   },
 };
 </script>
