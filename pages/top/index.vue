@@ -1,31 +1,16 @@
 <template>
   <div>
-    <div class="stories-wrapper">
-      <Item
-        v-for="(item, i) in news"
-        :key="item.id"
-        class="story"
-        :index="i"
-        :item-id="item.id"
-        :title="item.title"
-        :author="item.by"
-        :url="item.url"
-        :kids="item.kids"
-        :score="item.score"
-        :time="item.time"
-      />
-    </div>
-    <div class="news-wrapper"></div>
+    <ItemsWrapper :news="news" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import Item from '@/components/Item.vue';
+import ItemsWrapper from '@/components/ItemsWrapper';
 
 export default {
   components: {
-    Item,
+    ItemsWrapper,
   },
 
   data() {
@@ -51,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.stories-wrapper {
+.items-wrapper {
   padding: 0 7%;
 }
 </style>
