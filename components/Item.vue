@@ -1,16 +1,14 @@
 <template>
   <div class="item">
-    <div class="ranking">{{ index + 1 }}</div>
+    <div class="position">{{ index + 1 }}</div>
     <div>
-      <div class="title">
+      <div class="article-title">
         <a :href="url" target="_blank">{{ title }}</a>
       </div>
-      <span><i class="fa fa-clock"></i>{{ time | moment('from', 'now') }}</span>
-      <span class="author"><i class="fa fa-user"></i>{{ author }}</span>
-      <span><i class="score fa fa-heart"></i>{{ score }}</span>
-      <span class="comments"
-        ><i class="fa fa-comment"></i>{{ numComments }}</span
-      >
+      <ItemInfo fa-icon="fa fa-heart" :text="score" />
+      <ItemInfo fa-icon="fa fa-comment" :text="numComments" />
+      <ItemInfo fa-icon="fa fa-clock" :text="time | moment('from', 'now')" />
+      <ItemInfo fa-icon="fa fa-user" :text="author" />
     </div>
   </div>
 </template>
@@ -44,7 +42,7 @@ export default {
   align-items: center;
   padding: 18px;
   border-radius: 10px;
-  background: var(--teal);
+  background: var(--dark-teal);
   margin: 20px 0;
 }
 
@@ -52,25 +50,11 @@ export default {
   margin-top: 0;
 }
 
-.ranking {
-  font-size: 2rem;
-  color: var(--navy);
+.position {
+  font-size: 1.5rem;
+  color: #909090b8;
   margin-left: 20px;
   margin-right: 35px;
-}
-
-.fa {
-  margin-right: 8px;
-}
-
-span {
-  margin-right: 20px;
-  font-family: var(--accent-font);
-  font-size: 1rem;
-}
-
-.score {
-  color: red;
 }
 
 a {
@@ -79,10 +63,10 @@ a {
 }
 
 a:hover {
-  color: white;
+  color: orange;
 }
 
-.title {
+.article-title {
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 10px;

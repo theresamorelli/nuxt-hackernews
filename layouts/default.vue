@@ -18,7 +18,8 @@ export default {
 <style>
 :root {
   --navy: #112f41;
-  --teal: #068587;
+  --dark-teal: #04545d;
+  --teal: #0f7475;
   --teal-dimmed: #068587d9;
   --teal-light: #4fb99f;
   --yellow: #ffdd57;
