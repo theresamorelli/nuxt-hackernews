@@ -3,13 +3,39 @@
     <div class="logo">hacker news</div>
     <nav>
       <ul>
-        <li><nuxt-link to="/today" class="active">Today</nuxt-link></li>
-        <li><nuxt-link to="/best">Best</nuxt-link></li>
-        <li><nuxt-link to="/newest">Newest</nuxt-link></li>
+        <li>
+          <nuxt-link
+            to="/today"
+            :class="{ active: getCurrentRoute === 'today' }"
+            >Today</nuxt-link
+          >
+        </li>
+        <li>
+          <nuxt-link to="/best" :class="{ active: getCurrentRoute === 'best' }"
+            >Best</nuxt-link
+          >
+        </li>
+        <li>
+          <nuxt-link
+            to="/newest"
+            :class="{ active: getCurrentRoute === 'newest' }"
+            >Newest</nuxt-link
+          >
+        </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  computed: {
+    getCurrentRoute() {
+      return this.$route.name;
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
