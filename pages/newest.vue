@@ -35,7 +35,11 @@ export default {
         `https://hacker-news.firebaseio.com/v0/item/${mostRecentId}.json?print=pretty`
       );
 
-      if (res.data.type === 'story') this.items.push(res.data);
+      if (res.data.type === 'story') {
+        if (!res.data.dead) {
+          this.items.push(res.data);
+        }
+      }
       mostRecentId--;
     }
   },
