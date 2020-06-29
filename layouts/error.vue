@@ -1,7 +1,7 @@
 <template>
-  <div class="error">
+  <div class="error vh-center">
     <div>Sorry, there's a problem</div>
-    <div>Try refeshing!</div>
+    <div>Try clicking one of the links above</div>
   </div>
 </template>
 
@@ -14,4 +14,3 @@ export default {
   },
 };
 </script>
-

@@ -3,12 +3,12 @@
     <ItemsWrapper :items="items" />
     <div
       v-if="$fetchState.pending"
-      class="loading"
+      class="loading vh-center"
       :class="{ 'some-loaded': someItemsLoaded }"
     >
       Fetching...
     </div>
-    <div v-else-if="$fetchState.error" class="error">
+    <div v-else-if="$fetchState.error" class="error vh-center">
       <div>Oops, there's been a problem...</div>
       <div>Try refreshing in a few minutes</div>
     </div>

@@ -83,18 +83,21 @@ body {
   background-color: #35495e;
 }
 
-.loading,
-.error {
+.vh-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   min-height: 70vh;
+}
 
+.loading,
+.error {
   font-size: 1.5rem;
-  color: var(--red-error);
   line-height: 3rem;
+}
+.error {
+  color: var(--red-error);
 }
 
 .loading {

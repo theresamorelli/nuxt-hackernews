@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">
-        Hacker News
+      <h1 class="title vh-center">
+        <nuxt-link to="/today">Hacker News</nuxt-link>
       </h1>
     </div>
   </div>

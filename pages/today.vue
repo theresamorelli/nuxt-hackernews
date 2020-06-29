@@ -1,7 +1,7 @@
 <template>
   <div class="today-wrapper">
-    <div v-if="$fetchState.pending" class="loading">Fetching...</div>
-    <div v-else-if="$fetchState.error" class="error">
+    <div v-if="$fetchState.pending" class="loading vh-center">Fetching...</div>
+    <div v-else-if="$fetchState.error" class="error vh-center">
       <div>Oops, there's been a problem...</div>
       <div>Try refreshing in a few minutes</div>
     </div>
