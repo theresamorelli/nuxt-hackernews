@@ -60,20 +60,6 @@ export default {
   padding: 0 7%;
 }
 
-.loading,
-.error {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  min-height: 70vh;
-
-  font-size: 1.5rem;
-  color: var(--red-error);
-  line-height: 3rem;
-}
-
 .loading.some-loaded {
   min-height: 0;
 }

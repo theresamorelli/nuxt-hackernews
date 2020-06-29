@@ -25,6 +25,7 @@ export default {
   --yellow: #ffdd57;
   --orange-hn: #ff6502;
   --red-error: #de4545;
+  --green-loading: #55a058;
   --primary-font: 'Cabin', 'Helvetica Neue', sans-serif;
   --accent-font: 'Cabin Condensed', 'Helvetica', sans-serif;
 }
@@ -80,5 +81,23 @@ body {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 70vh;
+
+  font-size: 1.5rem;
+  color: var(--red-error);
+  line-height: 3rem;
+}
+
+.loading {
+  color: var(--green-loading);
 }
 </style>

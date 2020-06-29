@@ -1,6 +1,6 @@
 <template>
-  <div class="error-message-wrapper">
-    <div class="error-message">Sorry, there's a problem</div>
+  <div class="error">
+    <div>Sorry, there's a problem</div>
     <div>Try refeshing!</div>
   </div>
 </template>
@@ -15,14 +15,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.error-message-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--red-error);
-  font-size: 1.7rem;
-  height: calc(70vh);
-}
-</style>
