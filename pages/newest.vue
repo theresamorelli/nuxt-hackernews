@@ -1,6 +1,17 @@
 <template>
-  <div>
+  <div class="today-wrapper">
     <ItemsWrapper :items="items" />
+    <div
+      v-if="$fetchState.pending"
+      class="loading"
+      :class="{ 'some-loaded': someItemsLoaded }"
+    >
+      Fetching...
+    </div>
+    <div v-else-if="$fetchState.error" class="error">
+      <div>Oops, there's been a problem...</div>
+      <div>Try refreshing in a few minutes</div>
+    </div>
   </div>
 </template>
 
@@ -13,6 +24,22 @@ export default {
     ItemsWrapper,
   },
 
+  async fetch() {
+    const res = await axios.get(
+      'https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty'
+    );
+    let mostRecentId = res.data;
+
+    while (this.items.length < 10) {
+      const res = await axios.get(
+        `https://hacker-news.firebaseio.com/v0/item/${mostRecentId}.json?print=pretty`
+      );
+
+      if (res.data.type === 'story') this.items.push(res.data);
+      mostRecentId--;
+    }
+  },
+
   data() {
     return {
       items: [],
@@ -20,18 +47,10 @@ export default {
     };
   },
 
-  async mounted() {
-    const res = await axios.get(
-      'https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty'
-    );
-    let mostRecentId = res.data;
-    while (this.items.length < 10) {
-      const res2 = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${mostRecentId}.json?print=pretty`
-      );
-      if (res2.data.type === 'story') this.items.push(res2.data);
-      mostRecentId--;
-    }
+  computed: {
+    someItemsLoaded() {
+      return this.items.length > 0;
+    },
   },
 };
 </script>
@@ -39,5 +58,23 @@ export default {
 <style scoped>
 .items-wrapper {
   padding: 0 7%;
+}
+
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 70vh;
+
+  font-size: 1.5rem;
+  color: var(--red-error);
+  line-height: 3rem;
+}
+
+.loading.some-loaded {
+  min-height: 0;
 }
 </style>

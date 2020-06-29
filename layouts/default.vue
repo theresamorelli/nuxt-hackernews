@@ -24,6 +24,7 @@ export default {
   --teal-light: #4fb99f;
   --yellow: #ffdd57;
   --orange-hn: #ff6502;
+  --red-error: #de4545;
   --primary-font: 'Cabin', 'Helvetica Neue', sans-serif;
   --accent-font: 'Cabin Condensed', 'Helvetica', sans-serif;
 }

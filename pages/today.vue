@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <ItemsWrapper :items="items" />
+  <div class="today-wrapper">
+    <div v-if="$fetchState.pending" class="loading">Fetching...</div>
+    <div v-else-if="$fetchState.error" class="error">
+      <div>Oops, there's been a problem...</div>
+      <div>Try refreshing in a few minutes</div>
+    </div>
+    <ItemsWrapper v-else :items="items" />
   </div>
 </template>
 
@@ -13,24 +18,24 @@ export default {
     ItemsWrapper,
   },
 
+  async fetch() {
+    const res = await axios.get(
+      'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&orderBy="$key"&limitToFirst=10'
+    );
+
+    for (const item of res.data) {
+      const res = await axios.get(
+        `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
+      );
+      this.items.push(res.data);
+    }
+  },
+
   data() {
     return {
       items: [],
       quote: null,
     };
-  },
-
-  async mounted() {
-    const res = await axios.get(
-      'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&orderBy="$key"&limitToFirst=10'
-    );
-    for (const item of res.data) {
-      const res2 = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
-      );
-      this.items.push(res2.data);
-    }
-    console.log('this.items', this.items);
   },
 };
 </script>
@@ -38,5 +43,19 @@ export default {
 <style scoped>
 .items-wrapper {
   padding: 0 7%;
+}
+
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 70vh;
+
+  font-size: 1.5rem;
+  color: var(--red-error);
+  line-height: 3rem;
 }
 </style>
