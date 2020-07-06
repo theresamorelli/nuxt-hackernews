@@ -1,6 +1,10 @@
 <template>
   <div class="items-wrapper">
+    <div v-if="items.length === 0" class="error vh-center">
+      No stories found. Try again later
+    </div>
     <Item
+      v-else
       v-for="(item, i) in items"
       :key="item.id"
       class="story"
@@ -17,7 +21,6 @@
 </template>
 
 <script>
-import Item from '@/components/Item';
 export default {
   props: ['items'],
 };

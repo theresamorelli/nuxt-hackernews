@@ -1,10 +1,8 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title vh-center">
-        <nuxt-link to="/today">Hacker News</nuxt-link>
-      </h1>
-    </div>
+  <div class="vh-center">
+    <h1 class="title">
+      <nuxt-link to="/today">Welcome!</nuxt-link>
+    </h1>
   </div>
 </template>
 
@@ -29,7 +27,7 @@ export default Vue.extend({});
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 40px;
+  font-size: 70px;
   color: #35495e;
   letter-spacing: 1px;
 }

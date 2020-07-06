@@ -3,12 +3,12 @@
     <div class="position">{{ index + 1 }}</div>
     <div>
       <div class="article-title">
-        <a :href="url" target="_blank">{{ title }}</a>
+        <a :href="url" target="_blank">{{ title || 'No title' }}</a>
       </div>
       <ItemInfo fa-icon="fa fa-heart" :text="score" />
       <ItemInfo fa-icon="fa fa-comment" :text="numComments" />
-      <ItemInfo fa-icon="fa fa-clock" :text="time | moment('from', 'now')" />
       <ItemInfo fa-icon="fa fa-user" :text="author" />
+      <ItemInfo fa-icon="fa fa-clock" :text="time | moment('from', 'now')" />
     </div>
   </div>
 </template>

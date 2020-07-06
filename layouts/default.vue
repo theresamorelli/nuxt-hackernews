@@ -41,6 +41,9 @@ html {
   box-sizing: border-box;
   background: var(--navy);
 }
+html.wf-loading * {
+  opacity: 0;
+}
 
 body {
   font-family: var(--primary-font);
