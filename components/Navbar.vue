@@ -4,21 +4,17 @@
     <nav>
       <ul>
         <li>
-          <nuxt-link
-            to="/today"
-            :class="{ active: getCurrentRoute === 'today' }"
+          <nuxt-link to="/today" :class="{ active: currentRoute === 'today' }"
             >Today</nuxt-link
           >
         </li>
         <li>
-          <nuxt-link to="/best" :class="{ active: getCurrentRoute === 'best' }"
+          <nuxt-link to="/best" :class="{ active: currentRoute === 'best' }"
             >Best</nuxt-link
           >
         </li>
         <li>
-          <nuxt-link
-            to="/newest"
-            :class="{ active: getCurrentRoute === 'newest' }"
+          <nuxt-link to="/newest" :class="{ active: currentRoute === 'newest' }"
             >Newest</nuxt-link
           >
         </li>
@@ -30,7 +26,7 @@
 <script>
 export default {
   computed: {
-    getCurrentRoute() {
+    currentRoute() {
       return this.$route.name;
     },
   },
