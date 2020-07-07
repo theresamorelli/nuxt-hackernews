@@ -5,37 +5,21 @@
       <div>Oops, there's been a problem...</div>
       <div>Try refreshing in a few minutes</div>
     </div>
-    <ItemsWrapper v-else :items="items" />
+    <ItemsWrapper :items="items" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import ItemsWrapper from '@/components/ItemsWrapper';
-
 export default {
-  components: {
-    ItemsWrapper,
-  },
-
   async fetch() {
-    const res = await axios.get(
-      'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&orderBy="$key"&limitToFirst=10'
-    );
-
-    for (const item of res.data) {
-      const res = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
-      );
-      this.items.push(res.data);
-    }
+    const ids = await this.$store.dispatch('getIds');
+    this.$store.commit('SET_IDS', ids);
   },
 
-  data() {
-    return {
-      items: [],
-      quote: null,
-    };
+  computed: {
+    ids() {
+      return this.$store.state.ids;
+    },
   },
 };
 </script>
