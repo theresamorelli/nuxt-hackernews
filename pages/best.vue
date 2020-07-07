@@ -10,33 +10,18 @@
 </template>
 
 <script>
-import axios from 'axios';
-import ItemsWrapper from '@/components/ItemsWrapper';
-
 export default {
-  components: {
-    ItemsWrapper,
-  },
-
   async fetch() {
-    const res = await axios.get(
-      'https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty&orderBy="$key"&limitToFirst=10'
-    );
-
-    for (const item of res.data) {
-      const res = await axios.get(
-        `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
-      );
-
-      this.items.push(res.data);
-    }
+    const ids = await this.$store.dispatch('getBestIds');
+    await this.$store.commit('SET_BEST_IDS', ids);
+    const items = await this.$store.dispatch('getTwentyItems', 'bestIds');
+    this.$store.commit('SET_BEST_ITEMS', items);
   },
 
-  data() {
-    return {
-      items: [],
-      quote: null,
-    };
+  computed: {
+    items() {
+      return this.$store.state.bestItems;
+    },
   },
 };
 </script>

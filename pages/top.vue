@@ -14,14 +14,11 @@ export default {
   async fetch() {
     const ids = await this.$store.dispatch('getTopIds');
     await this.$store.commit('SET_TOP_IDS', ids);
-    const items = await this.$store.dispatch('getTwentyItems');
+    const items = await this.$store.dispatch('getTwentyItems', 'topIds');
     this.$store.commit('SET_TOP_ITEMS', items);
   },
 
   computed: {
-    ids() {
-      return this.$store.state.topIds;
-    },
     items() {
       return this.$store.state.topItems;
     },
