@@ -7,18 +7,18 @@ Vue.use(Vuex);
 const store = () =>
   new Vuex.Store({
     state: () => ({
-      items: [],
-      ids: [],
+      topItems: [],
+      topIds: [],
       count: 0,
     }),
     mutations: {
-      SET_IDS(state, ids) {
-        state.ids = ids;
+      SET_TOP_IDS(state, ids) {
+        state.topIds = ids;
       },
     },
     actions: {
-      async getIds() {
-        const ids = await fetchIds();
+      async getTopIds() {
+        const ids = await fetchIds('top');
         return ids;
       },
     },

@@ -1,7 +1,7 @@
 <template>
   <div class="vh-center">
     <h1 class="title">
-      <nuxt-link to="/today">Welcome!</nuxt-link>
+      <nuxt-link to="/top">Welcome!</nuxt-link>
     </h1>
   </div>
 </template>

@@ -4,8 +4,8 @@
     <nav>
       <ul>
         <li>
-          <nuxt-link to="/today" :class="{ active: currentRoute === 'today' }"
-            >Today</nuxt-link
+          <nuxt-link to="/top" :class="{ active: currentRoute === 'top' }"
+            >Top</nuxt-link
           >
         </li>
         <li>
