@@ -1,6 +1,6 @@
 <template>
   <div class="items-wrapper">
-    <div v-if="items.length === 0" class="error vh-center">
+    <div v-if="!items || items.length === 0" class="error vh-center">
       No stories found. Try again later
     </div>
     <Item
