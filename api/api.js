@@ -3,9 +3,7 @@ const baseURL = 'https://hacker-news.firebaseio.com/v0';
 
 export function fetchIds(type) {
   return axios
-    .get(
-      `${baseURL}/${type}stories.json?print=pretty&orderBy="$key"&limitToFirst=10`
-    )
+    .get(`${baseURL}/${type}stories.json?print=pretty`)
     .then((res) => {
       return res.data;
     });

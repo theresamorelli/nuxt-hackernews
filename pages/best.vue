@@ -12,15 +12,45 @@
 <script>
 export default {
   async fetch() {
+    // get ids and set in store
     const ids = await this.$store.dispatch('getBestIds');
     await this.$store.commit('SET_BEST_IDS', ids);
-    const items = await this.$store.dispatch('getTwentyItems', 'bestIds');
-    this.$store.commit('SET_BEST_ITEMS', items);
+
+    // call for first twenty items by id and add to store
+    const itemsToGet = this.$store.state.bestIds.slice(
+      this.$store.state.bestItems.length,
+      this.$store.state.bestItems.length + 20
+    );
+    const items = await this.$store.dispatch('getNextItems', itemsToGet);
+    this.$store.commit('ADD_BEST_ITEMS', items);
   },
 
   computed: {
     items() {
       return this.$store.state.bestItems;
+    },
+  },
+
+  mounted() {
+    this.scroll();
+  },
+
+  methods: {
+    scroll() {
+      window.onscroll = async () => {
+        const isAtBottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+
+        if (isAtBottomOfWindow) {
+          const itemsToGet = this.$store.state.bestIds.slice(
+            this.$store.state.bestItems.length,
+            this.$store.state.bestItems.length + 20
+          );
+          const items = await this.$store.dispatch('getNextItems', itemsToGet);
+          this.$store.commit('ADD_BEST_ITEMS', items);
+        }
+      };
     },
   },
 };
