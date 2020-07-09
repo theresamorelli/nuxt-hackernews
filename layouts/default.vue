@@ -104,6 +104,7 @@ body {
 }
 
 .loading {
+  text-align: center;
   color: var(--green-loading);
 }
 </style>

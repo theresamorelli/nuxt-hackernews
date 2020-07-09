@@ -1,33 +1,45 @@
 <template>
   <div class="top-wrapper">
-    <div v-if="$fetchState.pending" class="loading vh-center">Fetching...</div>
-    <div v-else-if="$fetchState.error" class="error vh-center">
+    <div v-if="$fetchState.error" class="error vh-center">
       <div>Oops, there's been a problem...</div>
       <div>Try refreshing in a few minutes</div>
     </div>
-    <ItemsWrapper :items="items" />
+    <ItemsWrapper v-else :items="items" :current-page="'top'" />
+    <Loading v-if="isLoadingMore" :is-fullpage="false" />
   </div>
 </template>
 
 <script>
 export default {
   async fetch() {
-    // get top ids and set in store
-    const res = await this.$store.dispatch('getTopIds');
-    await this.$store.commit('SET_TOP_IDS', res);
+    const store = this.$store;
+    const { topIds, topItems } = store.state;
 
-    // call for first twenty items by id and add to store
-    const itemsToGet = this.$store.state.topIds.slice(
-      this.$store.state.topItems.length,
-      this.$store.state.topItems.length + 20
-    );
-    const items = await this.$store.dispatch('getNextItems', itemsToGet);
-    this.$store.commit('ADD_TOP_ITEMS', items);
+    let ids = topIds;
+    if (!topItems.length) {
+      store.commit('START_LOADING');
+
+      // if no ids, get then set in store
+      if (!topIds.length) {
+        ids = await store.dispatch('getTopIds');
+        await store.commit('SET_TOP_IDS', ids);
+      }
+
+      // call for 20 items and add to store
+      const itemsToFetch = ids.slice(topItems.length, topItems.length + 20);
+      const items = await store.dispatch('getNextItems', itemsToFetch);
+      store.commit('ADD_TOP_ITEMS', items);
+
+      store.commit('STOP_LOADING');
+    }
   },
 
   computed: {
     items() {
       return this.$store.state.topItems;
+    },
+    isLoadingMore() {
+      return this.$store.state.isLoading && this.$store.state.topItems.length;
     },
   },
 
@@ -37,18 +49,26 @@ export default {
 
   methods: {
     scroll() {
+      // infinite scroll
       window.onscroll = async () => {
+        const store = this.$store;
+        const { topIds, topItems } = store.state;
+
         const isAtBottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
 
         if (isAtBottomOfWindow) {
-          const itemsToGet = this.$store.state.topIds.slice(
-            this.$store.state.topItems.length,
-            this.$store.state.topItems.length + 20
+          store.commit('START_LOADING');
+
+          const itemsToFetch = topIds.slice(
+            topItems.length,
+            topItems.length + 20
           );
-          const items = await this.$store.dispatch('getNextItems', itemsToGet);
-          this.$store.commit('ADD_TOP_ITEMS', items);
+          const items = await store.dispatch('getNextItems', itemsToFetch);
+          store.commit('ADD_TOP_ITEMS', items);
+
+          store.commit('STOP_LOADING');
         }
       };
     },

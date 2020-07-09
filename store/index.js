@@ -11,6 +11,7 @@ const store = () =>
       topItems: [],
       bestIds: [],
       bestItems: [],
+      isLoading: false,
     }),
 
     mutations: {
@@ -25,6 +26,12 @@ const store = () =>
       },
       ADD_BEST_ITEMS(state, items) {
         state.bestItems = [...state.bestItems, ...items];
+      },
+      START_LOADING(state) {
+        state.isLoading = true;
+      },
+      STOP_LOADING(state) {
+        state.isLoading = false;
       },
     },
 

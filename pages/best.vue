@@ -1,33 +1,43 @@
 <template>
   <div class="best-wrapper">
-    <div v-if="$fetchState.pending" class="loading vh-center">Fetching...</div>
-    <div v-else-if="$fetchState.error" class="error vh-center">
+    <div v-if="$fetchState.error" class="error vh-center">
       <div>Oops, there's been a problem...</div>
       <div>Try refreshing in a few minutes</div>
     </div>
-    <ItemsWrapper v-else :items="items" />
+    <ItemsWrapper v-else :items="items" :current-page="'best'" />
+    <Loading v-if="isLoadingMore" :is-fullpage="false" />
   </div>
 </template>
 
 <script>
 export default {
   async fetch() {
-    // get ids and set in store
-    const ids = await this.$store.dispatch('getBestIds');
-    await this.$store.commit('SET_BEST_IDS', ids);
+    const store = this.$store;
+    const { bestIds, bestItems } = store.state;
 
-    // call for first twenty items by id and add to store
-    const itemsToGet = this.$store.state.bestIds.slice(
-      this.$store.state.bestItems.length,
-      this.$store.state.bestItems.length + 20
-    );
-    const items = await this.$store.dispatch('getNextItems', itemsToGet);
-    this.$store.commit('ADD_BEST_ITEMS', items);
+    let ids = bestIds;
+    if (!bestItems.length) {
+      store.commit('START_LOADING');
+
+      if (!ids.length) {
+        ids = await store.dispatch('getBestIds');
+        await store.commit('SET_BEST_IDS', ids);
+      }
+
+      const itemsToFetch = ids.slice(bestItems.length, bestItems.length + 20);
+      const items = await store.dispatch('getNextItems', itemsToFetch);
+      await store.commit('ADD_BEST_ITEMS', items);
+
+      store.commit('STOP_LOADING');
+    }
   },
 
   computed: {
     items() {
       return this.$store.state.bestItems;
+    },
+    isLoadingMore() {
+      return this.$store.state.isLoading && this.$store.state.bestItems.length;
     },
   },
 
@@ -38,17 +48,24 @@ export default {
   methods: {
     scroll() {
       window.onscroll = async () => {
+        const store = this.$store;
+        const { bestIds, bestItems } = store.state;
+
         const isAtBottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
 
         if (isAtBottomOfWindow) {
-          const itemsToGet = this.$store.state.bestIds.slice(
-            this.$store.state.bestItems.length,
-            this.$store.state.bestItems.length + 20
+          store.commit('START_LOADING');
+
+          const itemsToFetch = bestIds.slice(
+            bestItems.length,
+            bestItems.length + 20
           );
-          const items = await this.$store.dispatch('getNextItems', itemsToGet);
-          this.$store.commit('ADD_BEST_ITEMS', items);
+          const items = await store.dispatch('getNextItems', itemsToFetch);
+          store.commit('ADD_BEST_ITEMS', items);
+
+          store.commit('STOP_LOADING');
         }
       };
     },
