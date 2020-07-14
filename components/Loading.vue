@@ -9,7 +9,7 @@ export default {
   props: ['isFullpage'],
   computed: {
     isLoading() {
-      return this.$store.state.isLoading;
+      return this.$store.getters.isLoading;
     },
   },
 };

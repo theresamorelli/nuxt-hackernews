@@ -55,6 +55,7 @@ const store = () =>
       topItems: (state) => state.topItems,
       bestIds: (state) => state.bestIds,
       bestItems: (state) => state.bestItems,
+      isLoading: (state) => state.isLoading,
     },
   });
 
