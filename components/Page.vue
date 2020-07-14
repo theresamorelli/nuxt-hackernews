@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 export default {
   name: 'Page',
   props: {
@@ -29,9 +30,10 @@ export default {
       return this.current + '-wrapper';
     },
     isLoadingMore() {
-      return this.current === 'top'
-        ? this.$store.state.isLoading && this.$store.state.topItems.length
-        : this.$store.state.isLoading && this.$store.state.bestItems.length;
+      return (
+        this.$store.getters.isLoading &&
+        this.$store.getters[`${this.current}Items`].length
+      );
     },
   },
 
@@ -41,32 +43,34 @@ export default {
 
   methods: {
     scroll() {
-      window.onscroll = async () => {
-        const store = this.$store;
-        let ids;
-        let items;
-        if (this.current === 'top') {
-          ids = store.getters.topIds;
-          items = store.getters.topItems;
-        } else {
-          ids = store.getters.bestIds;
-          items = store.getters.bestItems;
-        }
+      window.onscroll = _.throttle(
+        () => {
+          const isAtBottomOfWindow =
+            document.documentElement.scrollTop + window.innerHeight ===
+            document.documentElement.offsetHeight;
+          if (isAtBottomOfWindow) {
+            this.loadItems();
+          }
+        },
+        500,
+        { leading: true }
+      );
+    },
+    async loadItems() {
+      const store = this.$store;
+      store.commit('START_LOADING');
 
-        const isAtBottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
+      const ids = store.getters[`${this.current}Ids`];
+      const currentItems = store.getters[`${this.current}Items`];
+      const itemIdsToFetch = ids.slice(
+        currentItems.length,
+        currentItems.length + 20
+      );
 
-        if (isAtBottomOfWindow) {
-          store.commit('START_LOADING');
+      const nextItems = await store.dispatch('getNextItems', itemIdsToFetch);
+      await store.commit(`ADD_${this.current.toUpperCase()}_ITEMS`, nextItems);
 
-          const itemsToFetch = ids.slice(items.length, items.length + 20);
-          const nextItems = await store.dispatch('getNextItems', itemsToFetch);
-          store.commit(`ADD_${this.current.toUpperCase()}_ITEMS`, nextItems);
-
-          store.commit('STOP_LOADING');
-        }
-      };
+      store.commit('STOP_LOADING');
     },
   },
 };
