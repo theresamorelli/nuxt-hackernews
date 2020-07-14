@@ -107,4 +107,8 @@ body {
   text-align: center;
   color: var(--green-loading);
 }
+
+.items-wrapper {
+  padding: 0 7%;
+}
 </style>
