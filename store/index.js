@@ -49,6 +49,13 @@ const store = () =>
         return res.map((item) => item.data);
       },
     },
+
+    getters: {
+      topIds: (state) => state.topIds,
+      topItems: (state) => state.topItems,
+      bestIds: (state) => state.bestIds,
+      bestItems: (state) => state.bestItems,
+    },
   });
 
 export default store;
