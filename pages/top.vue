@@ -21,10 +21,10 @@ export default {
         await store.commit('SET_TOP_IDS', ids);
       }
 
-      // call for 20 items and add to store
+      // call for 10 items and add to store
       const itemsToFetch = ids.slice(
         this.topItems.length,
-        this.topItems.length + 20
+        this.topItems.length + 10
       );
       const items = await store.dispatch('getNextItems', itemsToFetch);
       store.commit('ADD_TOP_ITEMS', items);

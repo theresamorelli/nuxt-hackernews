@@ -64,7 +64,7 @@ export default {
       const currentItems = store.getters[`${this.current}Items`];
       const itemIdsToFetch = ids.slice(
         currentItems.length,
-        currentItems.length + 20
+        currentItems.length + 10
       );
 
       const nextItems = await store.dispatch('getNextItems', itemIdsToFetch);

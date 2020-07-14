@@ -23,7 +23,7 @@ export default {
 
       const itemsToFetch = ids.slice(
         this.bestItems.length,
-        this.bestItems.length + 20
+        this.bestItems.length + 10
       );
       const items = await store.dispatch('getNextItems', itemsToFetch);
       await store.commit('ADD_BEST_ITEMS', items);
